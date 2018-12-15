@@ -1,0 +1,95 @@
+<button data-toggle="collapse" data-target="#addUser"  type="button" class="btn btn-success">
+<h5>Benutzer Hinzufügen</h5> </button>
+
+<div id="addUser" class="collapse">
+
+    <div class="form-group">
+        <label for="InputName">Name</label>
+        <input class="form-control" id="InputNameAdd" placeholder="Name">
+    </div>
+    <div class="form-group">
+        <label for="InputGroup">Gruppe auswählen</label>
+        <select class="form-control" id="InputGroupAdd">
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+            <option>D</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="InputPasswort">Passwort</label>
+        <input type="password" class="form-control" id="InputPasswortAdd" placeholder="Passwort">
+    </div>
+    <button onclick="formAddUser()" class="btn btn-primary">Hinzufügen</button>
+    <span id="meldungAdd"></span>
+    <br><br>
+</div>
+
+<br><br>
+
+<button data-toggle="collapse" data-target="#changeGroup"  type="button" class="btn btn-info">
+<h5>Gruppe Wechseln</h5> </button>
+<div id="changeGroup" class="collapse">
+<div class="form-group">
+    <label for="InputName">Name</label>
+    <input class="form-control" id="InputNameChange" placeholder="Name">
+</div>
+<div class="form-group">
+    <label for="InputGroup">Wechseln zu Gruppe</label>
+    <select class="form-control" id="InputGroupChange">
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+        <option>D</option>
+    </select>
+</div>
+<div class="form-group">
+    <label for="InputPasswort">Passwort</label>
+    <input type="password" class="form-control" id="InputPasswortChange" placeholder="Passwort">
+</div>
+<button onclick="formChangeUserGroup()" class="btn btn-primary">Ändern</button>
+<span id="meldungChange"></span>
+    <br><br>
+</div>
+<br><br>
+
+<!-- Delete User -->
+<button data-toggle="collapse" data-target="#deleteUser"  type="button" class="btn btn-danger">
+    <h5>Benutzer Löschen</h5> </button>
+<div id="deleteUser" class="collapse">
+    <div class="form-group">
+        <label for="InputName">Name</label>
+        <input class="form-control" id="InputNameDelete" placeholder="Name">
+    </div>
+    <div class="form-group">
+        <label for="InputPasswort">Passwort</label>
+        <input type="password" class="form-control" id="InputPasswortDelete" placeholder="Passwort">
+    </div>
+    <button onclick="formDeleteUser()" class="btn btn-primary">Löschen</button>
+    <span id="meldungDelete"></span>
+    <br>
+</div>
+<br><br>
+
+
+<!-- Change Week -->
+<button data-toggle="collapse" data-target="#weekChange"  type="button" class="btn-warning">
+    <h5>Woche setzen</h5> </button>
+<div id="weekChange" class="collapse">
+    <div class="form-group">
+        <label for="InputGroup">Aktuelle Woche manuell wechseln zu</label>
+        <select class="form-control" id="InputWeekChange">
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+            <option>D</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="InputPasswort">Passwort</label>
+        <input type="password" class="form-control" id="InputPasswortWeek" placeholder="Passwort">
+    </div>
+    <button onclick="changeWeek()" class="btn btn-primary">Wechseln</button>
+    <span id="meldungWeek"></span>
+    <br>
+</div>

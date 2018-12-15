@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="a8794bdf-11e8-44f5-a5cd-f081433f9623" name="AWS" url="http://ubuntu@ec2-52-59-201-32.eu-central-1.compute.amazonaws.com">
+        <fileTransfer host="ubuntu@ec2-52-59-201-32.eu-central-1.compute.amazonaws.com" port="22" privateKey="C:\Users\tobia\Desktop\aws-key.ppk" rootFolder="/home/ubuntu/BillardTrainingApp" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
