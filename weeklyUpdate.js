@@ -6,7 +6,7 @@ var db = new JsonDB("data/userDataDB", true, false);
 db2.push("/currentWeek", "A");
 
 
-cron.schedule("* * * * * ", function () {
+cron.schedule("*/5 * * * *", function () {
     console.log("----Cron Job Datum Berechnen----");
     changeWeekGroup();
     changeDate();

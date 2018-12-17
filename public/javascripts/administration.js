@@ -1,4 +1,3 @@
-
 function formAddUser() {
     var pwIn = document.getElementById("InputPasswortAdd").value;
     if (pwIn == 'test') {
@@ -32,10 +31,10 @@ function formChangeUserGroup() {
 }
 
 function formDeleteUser() {
-    var pwIn = document.getElementById("InputPasswortDelete").value;
+    let pwIn = document.getElementById("InputPasswortDelete").value;
     if (pwIn == 'test') {
-        var userName = document.getElementById("InputNameDelete").value;
-        var res = httpGet("http://52.59.201.32:80/data/deleteUser/" + userName);
+        let userName = document.getElementById("InputNameDelete").value;
+        let res = httpGet("http://52.59.201.32:80/data/deleteUser/" + userName);
         document.getElementById("meldungDelete").innerHTML = res;
         document.getElementById("meldungDelete").style.color = "green";
         console.log("Benutzer gelöscht!");
@@ -47,10 +46,10 @@ function formDeleteUser() {
 }
 
 function changeWeek() {
-    var pwIn = document.getElementById("InputPasswortWeek").value;
-    if (pwIn == 'test') {
-        var newWeek = document.getElementById("InputWeekChange").value;
-        var res = httpGet("http://52.59.201.32:80/data/changeWeek/" + newWeek);
+    let pwIn = document.getElementById("InputPasswortWeek").value;
+    if (pwIn === 'test') {
+        let newWeek = document.getElementById("InputWeekChange").value;
+        let res = httpGet("http://52.59.201.32:80/data/changeWeek/" + newWeek);
         document.getElementById("meldungWeek").innerHTML = res;
         document.getElementById("meldungWeek").style.color = "green";
         console.log("Woche geändert.");
@@ -63,34 +62,43 @@ function changeWeek() {
 
 function freigeben(i) {
     console.log("freigeben: " + i);
-    document.getElementById("zeile" + i).style.backgroundColor = "#BEF781";
+    document.getElementById("zeile" + i).style.backgroundColor = "#F3E2A9"; //gelb färben
     document.getElementById("z" + i + "1").innerHTML = "Platz wirklich freigeben?";
     document.getElementById("z" + i + "2").innerHTML = "<button style='width: 80%' onclick='enterFreigeben(true," + i + ")'>JA</button>";
     document.getElementById("z" + i + "3").innerHTML = "<button style='width: 80%' onclick='enterFreigeben(false," + i + ")'>Nein</button>";
 }
 
 function enterFreigeben(bool, i) {
-    console.log("eneteFreigebn");
-    if (bool == false) {
-        location.reload();
+    console.log("eneteFreigebn: " + bool);
+    if (bool === false) {
+        // location.reload();
         console.log("faalse");
-       // httpGet("http://52.59.201.32:80/daily"); //TODO schöner aber geht nicht
-    } else if (bool = true) {
+        //   httpGet("http://52.59.201.32:80/daily"); //TODO schöner aber geht nicht
+    } else if (bool === true) {
+        console.log("Senden http");
+        httpGet("http://52.59.201.32:80/data/changeState/" + i + "/null");
 
-        httpGet("http://52.59.201.32:80/changeState/"+ i);
 
-        console.log("i: " + i);
-    //    document.getElementById("z" + i + "1").innerHTML = "<input placeholder='Neuen Name eingeben'> </input>";
-    //    document.getElementById("z" + i + "2").innerHTML = "<button>Bestätigen</button>";
-    //    document.getElementById("z" + i + "3").innerHTML = "frei";
+        // if(Antwort == 'true') httpGet
+        // httpGet("http://52.59.201.32:80/daily");
+        console.log("iii: " + i);
 
+    }
+    location.reload();
+}
+
+function setNewName(id) {
+    let newName = document.getElementById("newName").value;
+    if (newName != "") {
+        httpGet("http://52.59.201.32:80/data/changeState/" + id + "/" + newName);
+        location.reload();
     }
 }
 
 
 function httpGet(theUrl) {
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", theUrl, false); // false for synchronous request
-    xmlHttp.send(null);
+    xmlHttp.open("GET", theUrl, true); // false for synchronous request
+    xmlHttp.send();
     return xmlHttp.responseText;
 }

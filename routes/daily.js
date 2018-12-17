@@ -31,7 +31,10 @@ router.get('/', function (req, res) {
     html += '</b></span></p><br><p>Tabelle vom Gruppenmitglieder und Funktion zur Platzvergabe</p><br>\n';
     html += table(currentWeek);
     html += '<p>evtl. Aktuelle Änderungen</p>'
-    html += '<style>tr:hover {background-color:#dcdcdc;} table {border-collapse: collapse; width: 50%;}th, td {\n' +
+    html += '<style>tr:hover {background-color:#dcdcdc;} ' +
+        '@media only screen and (max-device-width:868px){table {border-collapse: collapse; width: 100%;}}' +
+        '@media only screen and (min-device-width:869px){table {border-collapse: collapse; width: 60%;}}' +
+        'th, td {\n' +
         '  padding: 8px;\n' +
         '  text-align: left;\n' +
         '  border-bottom: 1px solid #ddd;\n' +
@@ -50,16 +53,27 @@ function table(gr) {
         try {
             var user = database.getData("/" + i);
             if (user.Name != undefined) {
-                if (user.Gruppe == gr) {
+                if (user.Gruppe === gr) {
                     console.log("2: " + user.Name + " -- " + user.Gruppe);
-                    tableHtml += "<tr id='zeile"+i+"'><td id='z"+i+"1'>" + user.Name +
-                        "</td><td id='z"+i+"2'><button onclick='freigeben("+i+")'>(TODO) Termin Freigeben</button></td><td id='z"+i+"3'>" + user.Status + "</td></tr>";
+                    console.log("userVetretung:" + user.Vertretung + ":");
+                    if (user.Vertretung != '') {
+                        console.log("achtung");
+                        tableHtml += "<tr id='zeile" + i + "'><td id='z" + i + "1'>" + user.Vertretung +
+                            "</td><td id='z" + i + "2'></td><td id='z" + i + "3'>" + user.Status + "</td></tr>";
+
+                    } else if (user.Status === 'frei') {
+                        tableHtml += "<tr id='zeile" + i + "' style='background-color:#BEF781'><td id='z" + i + "1'><input id='newName' placeholder='Neuen Namen eingeben'>" +
+                            "</td><td id='z" + i + "2'><button onclick='setNewName(" + i + ")'>Bestätigen</button></td><td id='z" + i + "3'>" + user.Status + "</td></tr>";
+                    } else if (user.Status === 'belegt') {
+                        tableHtml += "<tr id='zeile" + i + "'><td id='z" + i + "1'>" + user.Name +
+                            "</td><td id='z" + i + "2'><button onclick='freigeben(" + i + ")'>Termin Freigeben</button></td><td id='z" + i + "3'>" + user.Status + "</td></tr>";
+
+                    }
+
+
+                    console.log("Status: " + user.Status + "von User: " + user.Name);
                 }
-                if(user.Status == 'frei'){
-                    document.getElementById("z" + i + "1").innerHTML = "<input placeholder='Neuen Name eingeben'> </input>";
-                    document.getElementById("z" + i + "2").innerHTML = "<button>Bestätigen</button>";
-                    document.getElementById("z" + i + "3").innerHTML = "frei";
-                }
+
             }
         } catch (error) {
         }

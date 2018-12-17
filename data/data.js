@@ -107,26 +107,41 @@ router.get('/changeWeek/:newWeek', function (req, res) {
     res.status(500).send("Fehler - Woche konnte NICHT geändert werden!");
 });
 
-//changeState
+
+//changeState //TODO testen + ändern
 router.get('/changeState/:id/:newName', function (req, res) {
-    var id = req.params.id;
-    var newName = req.params.newName;
+    console.log("geöffnet --------------------" + req.params.id +" und " + req.params.newName);
+    let id = req.params.id;
     try {
-        var user = db.getData("/" + id);
-        var name = user.Name;
-        var gruppe = user.Gruppe;
-        if (newName.length <= 1) {
-            var obj = {"Name": name, "Gruppe": gruppe, "Status": "belegt", "Vertretung": ""};
-            db.push("/" + i, obj);
+        let user = db.getData("/" + id);
+        if (req.params.newName === 'null') {
+            console.log("1");
+            if (user.Status === 'belegt') {
+                console.log("2");
+                db.push("/" + id, {"Name": user.Name, "Gruppe": user.Gruppe, "Status": "frei", "Vertretung": ""});
+                //Seite neu laden
+                res.send("Antwort belegt auf frei");
 
-
-            res.send(name + " wurde erfolgreich in Gruppe " + newGr + " verschoben.");
-            return;
-        } else if (newGr.length > 1) {
-
+            } else if (user.Status === 'frei') {
+                console.log("3");
+                db.push("/" + id, {
+                    "Name": user.Name,
+                    "Gruppe": user.Gruppe,
+                    "Status": "belegt",
+                    "Vertretung": req.params.newName
+                });
+                //Seite neu laden
+                res.send("Antwort frei auf belegt");
+            }
+            db.reload();
+        }else{
+            console.log("Vertretung eintragen: "+ req.params.newName);
+            db.push("/" + id, {"Name": user.Name, "Gruppe": user.Gruppe, "Status": "belegt (Vertretung)", "Vertretung": req.params.newName});
+            res.send("true");
         }
-    }catch (e) {
-        
+    } catch (e) {
+        console.log("!! changeState");
+        res.send("Fehler -- changeState");
     }
 });
 

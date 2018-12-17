@@ -20,7 +20,7 @@ router.get('/', function (req, res) {
     html += table("C");
     html += "<h4>Gruppe D</h4>";
     html += table("D");
-    console.log(html);
+    // console.log(html);
     res.send(html);
 
 });
@@ -43,10 +43,11 @@ function table(gr) {
         } catch (error) {
         }
     }
-    tableHtml += "</table><br><style>table {\n" +
-        "  border-collapse: collapse;\n" +
-        "  width: 50%;\n" +
-        "}tr:hover {background-color:#dcdcdc;} th, td {\n" +
+    tableHtml += "</table><br><style> \n" +
+
+        "@media only screen and (max-device-width:568px){table {border-collapse: collapse; width: 100%;}}" +
+        "@media only screen and (min-device-width:569px){table {border-collapse: collapse; width: 40%; }}" +
+        "tr:hover {background-color:#dcdcdc;} th, td {\n" +
         "  padding: 8px;\n" +
         "  text-align: left;\n" +
         "  border-bottom: 1px solid #ddd;\n" +
